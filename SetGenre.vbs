@@ -1,9 +1,14 @@
+' // - Include 'Functions' file - //
+    Set objFSO = CreateObject("Scripting.FileSystemObject")
+    Set objTextFile = objFSO.OpenTextFile("Utils.vbs", 1)
+    ExecuteGlobal objTextFile.ReadAll
+    objTextFile.Close
+    Set objFSO = Nothing
+    Set objTextFile = Nothing
+' // ----------------------------- //
 
- ' Variables
-Set fsObj = CreateObject("Scripting.FileSystemObject")
-Set oShell = WScript.CreateObject ("WScript.Shell")
-thisFolderPath = fsObj.GetParentFolderName(WScript.ScriptFullName)
-Set thisFolder = fsObj.GetFolder(thisFolderPath)
+
+
 output = ""
 
 
@@ -15,13 +20,11 @@ If WScript.Arguments.Count = 0 Then
  ' Else set genre
 Else
 
+     ' Get genre num from argument
     genreNum = WScript.Arguments.Item(0)
 
-    ' Get genre folders list
-    Set genreFoldersList = thisFolder.SubFolders
-
     ' If new genre num > num folders, reset to 0
-    If Int(genreNum) > int(genreFoldersList.Count) Then
+    If Int(genreNum) > Int(GetNumGenres()) Then
         genreNum = 0
         output = output & "The genre number you entered is not an option." & vbCrLf
     End If
@@ -32,15 +35,18 @@ Else
     genreFile.Close
     Set genreFile = Nothing
 
+     ' Get genre name
     If genreNum = 0 Then
         genreName = "Random Genre"
     Else
         i = 1
-        For Each genreFolder in genreFoldersList
-        If Int(i) = Int(genreNum) Then
-            genreName = genreFolder.Name
-        End If
-        i = i + 1
+        For Each genreFolder in GetGenreFoldersList()
+            If IsGenreFolder(genreFolder) Then
+                If Int(i) = Int(genreNum) Then
+                    genreName = genreFolder.Name
+                End If
+                i = i + 1
+            End If
         Next
     End If
 
@@ -63,27 +69,17 @@ Wscript.Echo output
 
 Function HelpMessage()
 
-    Set genreFoldersList = thisFolder.SubFolders
-
     indent = "    "
     outString = vbCrLf & "Set the genre using one of these values:" & vbCrLf & indent & "0 - Random Genre"
 
     i = 1
-    For Each folder in genreFoldersList
-        outString = outString & vbCrLf & indent & i & " - " & folder.Name
-        i = i + 1
+    For Each folder in GetGenreFoldersList()
+        If IsGenreFolder(folder) Then
+            outString = outString & vbCrLf & indent & i & " - " & folder.Name
+            i = i + 1
+        End If
     Next
 
     HelpMessage = outString
 
 End Function
-
-' Function GetGenreFromFile()
-
-'   Set genreFile = fsObj.OpenTextFile("genre.txt", 1)
-'   genreNum = genreFile.ReadAll()
-'   genreFile.Close
-'   Set genreFile = Nothing
-'   GetGenreFromFile = genreNum
-
-' End Function
