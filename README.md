@@ -21,6 +21,9 @@ Open 'Edit the system envorinment variables
 Run the command 'PlayRandomClassic' manually or add this command to another script.
 A random song will play from the chosen genre folder.
 
+For it to work in another script, call it with '&&', so "PlayRandomClassic && <your_other_command>",
+or have it on a separate line with 'Call' in front of it, so "Call PlayRandomClassic".
+
 
 
 ## Genres
