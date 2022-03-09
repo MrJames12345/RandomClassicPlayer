@@ -1,11 +1,9 @@
 
- ' Variables
 
-Set fsObj = CreateObject("Scripting.FileSystemObject")
+ ' Variables
+ 
 Set oShell = WScript.CreateObject ("WScript.Shell")
 Set audioPlayer = CreateObject("WMPlayer.OCX")
-thisFolderPath = fsObj.GetParentFolderName(WScript.ScriptFullName)
-Set thisFolder = fsObj.GetFolder(thisFolderPath)
 
 
 

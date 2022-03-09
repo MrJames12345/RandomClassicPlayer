@@ -1,10 +1,11 @@
+
 ' // - Include 'Functions' file - //
-    Set objFSO = CreateObject("Scripting.FileSystemObject")
-    Set objTextFile = objFSO.OpenTextFile("Utils.vbs", 1)
-    ExecuteGlobal objTextFile.ReadAll
-    objTextFile.Close
-    Set objFSO = Nothing
-    Set objTextFile = Nothing
+    Set fsObj = CreateObject("Scripting.FileSystemObject")
+    thisFolderPath = fsObj.GetParentFolderName(WScript.ScriptFullName)
+    Set thisFolder = fsObj.GetFolder(thisFolderPath)
+    Set utilsFile = fsObj.OpenTextFile(thisFolder & "\Utils.vbs", 1)
+    ExecuteGlobal utilsFile.ReadAll
+    utilsFile.Close
 ' // ----------------------------- //
 
 
