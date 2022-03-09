@@ -1,2 +1,3 @@
 @echo off
-stop && start "" "C:/RandomClassicPlayer/PlayRandomClassic.vbs"
+Call stop
+start "" "C:/RandomClassicPlayer/PlayRandomClassic.vbs"
