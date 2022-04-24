@@ -80,6 +80,24 @@ End Function
 
 
 
+Function GetNthGenreName(inNum)
+
+  genreName = fsObj.GetFolder( GetNthGenrePath(inNum) ).Name
+
+  GetNthGenreName = genreName
+
+End Function
+
+
+
+Function GetCurrentGenreName()
+
+  GetCurrentGenreName = GetNthGenreName( GetGenreFromFile() )
+
+End Function
+
+
+
 Function GetRandomGenreNum()
 
   GetRandomGenreNum = GetRandomNum(1, GetNumGenres())

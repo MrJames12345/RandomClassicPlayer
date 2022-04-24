@@ -51,7 +51,7 @@ Else
         Next
     End If
 
-    output = output & "Your genre is set to " & Int(genreNum) & " (" & genreName & ")."
+    output = output & "Your genre is set to '" & genreName & "'."
 
 End If
 
@@ -71,7 +71,7 @@ Wscript.Echo output
 Function HelpMessage()
 
     indent = "    "
-    outString = vbCrLf & "Set the genre using one of these values:" & vbCrLf & indent & "0 - Random Genre"
+    outString = vbCrLf & "Your current genre is '" & GetCurrentGenreName() & "'." & vbCrLf & "Set the genre using one of these values:" & vbCrLf & indent & "0 - Random Genre"
 
     i = 1
     For Each folder in GetGenreFoldersList()
